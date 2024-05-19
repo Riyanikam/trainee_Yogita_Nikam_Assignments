@@ -1,42 +1,43 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Net.Http.Headers;
 
 namespace ConsoleAppCURD
 {
     internal class Program
     {
-        class Task//Here Create a Task class with it's parameter values and get,set for  further suppose
+        class Task//Here we Create a class Task
+         {
+            public string Title { get; set; }
+            public string Description { get; set; }
+        }
+
+        static void Main(String[] args)
         {
-            public string Title{ get; set; }
-            public string Description{ get; set; }
-            }
 
-            static void Main(String[] args)
+            List<Task> taskList = new List<Task>();//Created a list for the operation provide by the generic type  
+
+            bool exit = false;
+            while (!exit)
             {
+                Console.WriteLine("List of the task,Enter your  choice");//Displaying a menu to Enter Choice
+                Console.WriteLine("1.Create a Task");
+                Console.WriteLine("2.Read a Task");
+                Console.WriteLine("3.Update a Task");
+                Console.WriteLine("4.Remove a Task");
+                Console.WriteLine("5.Exit");
 
-                List<Task> taskList = new List<Task>();//Created a list for the operation provide by the generic type  
+                int choice;
+                Console.Write("Enter a choice");
 
-                bool exit = false;
-                while (!exit)
-                {
-                    Console.WriteLine("List of the task,Enter your  choice");//Displaying a menu to Enter Choice
-                    Console.WriteLine("1.Create a Task");
-                    Console.WriteLine("2.Read a Task");
-                    Console.WriteLine("3.Update a Task");
-                    Console.WriteLine("4.Remove a Task");
-                    Console.WriteLine("5.Exit");
-
-                    int choice;
-                    Console.Write("Enter a choice");
-
-                if (!int.TryParse(Console.ReadLine(),out choice))
+                if (!int.TryParse(Console.ReadLine(), out choice))
                 {
                     Console.WriteLine("Invalid Input.Enter a number");
                     continue;
                 }
 
-                switch (choice)//Using Switch Casewe have take a choice
+                switch (choice)//Using Switch Case we have take a choice
                 {
                     case 1://Create operation has been perform here
                         string Title;
@@ -56,60 +57,78 @@ namespace ConsoleAppCURD
 
 
                     case 2://Here we have perform the Read operation
-                            if (taskList.Count == 0)
-                            {
-                                Console.WriteLine("No Available task");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Task List \n ");
+                        if (taskList.Count == 0)
+                        {
+                            Console.WriteLine("No Available task");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Task List \n ");
                             foreach (var task in taskList)
                             {
                                 Console.WriteLine($"Task: {task.Title} - {task.Description}");
                             }
 
-
                         }
-
                         break;
+                
+                   //this Case is newly Updated
 
-                    case 3://here we have done the updation and we can update both decription and title by entering choice in the switch case
+                   case 3://by using the switch I have updated the task you cn only update the task also and description also and both the task and description 
                         int TskToUpdate;
                         int attribChoice;
-                        string newval; 
+                        string newval;
+                        string newvaltwo;
 
                         Console.WriteLine("Enter the task number you want to Update");
-                        TskToUpdate = int.Parse(Console.ReadLine())-1; 
+                        TskToUpdate = int.Parse(Console.ReadLine()) - 1;
 
-                        if (TskToUpdate < 0 || TskToUpdate >= taskList.Count)                         {
+                        if (TskToUpdate < 0 || TskToUpdate >= taskList.Count)
+                        {
                             Console.WriteLine("The task Index is Invalid");
                         }
                         else
                         {
                             Console.WriteLine("Select the attribute to update");
-                            Console.WriteLine("1. Title");
-                            Console.WriteLine("2. Description\n");
+                            Console.WriteLine("1.Update Title");
+                            Console.WriteLine("2.Update Description");
+                            Console.WriteLine("3.Update Title and Description both");//Newly added choice
 
                             Console.Write("Enter your Choice");
-                            attribChoice = int.Parse(Console.ReadLine()); 
-                            Console.WriteLine("Enter a new value to be updated");
-                            newval = Console.ReadLine(); 
+                            attribChoice = int.Parse(Console.ReadLine());
 
-                            switch (attribChoice)//here switch has been use for updation
+                            switch (attribChoice)
                             {
-                                case 1:
+                                case 1://for Updating only title
+                                    Console.WriteLine("Enter a new value of the Title");
+                                    newval = Console.ReadLine();
                                     taskList[TskToUpdate].Title = newval;
                                     break;
-                                case 2:
+                                case 2://for Updating only description
+                                    Console.WriteLine("Enter a new value of the Description");
+                                    newval = Console.ReadLine();
                                     taskList[TskToUpdate].Description = newval;
                                     break;
-                                default:
+                                case 3://Here we can update both the thing 
+                                    Console.WriteLine("Enter a new value of the Title");
+                                    newval = Console.ReadLine();
+
+                                    Console.WriteLine("Enter a new value of the Description");
+                                    newvaltwo = Console.ReadLine();
+
+                                    taskList[TskToUpdate].Title = newval;
+                                    taskList[TskToUpdate].Description = newvaltwo;
+                                    break;
+
+                                    default:
                                     Console.WriteLine("Invalid Choice\n");
                                     break;
                             }
-                            Console.WriteLine("Task Updated successfully!");
+                            
                         }
                         break;
+
+
                     case 4://deletion is done here remove the element of the specified position by giving the index  using list function and have check for the basic condition
                         int indexTodel;
 
@@ -121,7 +140,7 @@ namespace ConsoleAppCURD
                         {
                             Console.WriteLine("Enter a Task index you want to delete");
 
-                            if (!int.TryParse(Console.ReadLine(),out indexTodel) || indexTodel < 1 || indexTodel > taskList.Count)
+                            if (!int.TryParse(Console.ReadLine(), out indexTodel) || indexTodel < 1 || indexTodel > taskList.Count)
                             {
                                 Console.WriteLine("Invalid Index.");
                             }
@@ -146,9 +165,10 @@ namespace ConsoleAppCURD
     }
 }
 
+
 /* OUTPUT OF THE CODE */
 /*
-List of the task, Enter your  choice
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
@@ -156,11 +176,11 @@ List of the task, Enter your  choice
 5.Exit
 Enter a choice 1
 Enter the task title
-write a code
+do code
 Enter the task Description
-Write a code using C#
+do code in cpp
 Task is created
-List of the task, Enter your  choice
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
@@ -169,8 +189,8 @@ List of the task, Enter your  choice
 Enter a choice 2
 Task List
 
-Task: write a code - Write a code using C#
-List of the task, Enter your  choice
+Task: do code - do code in cpp
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
@@ -180,14 +200,13 @@ Enter a choice 3
 Enter the task number you want to Update
 1
 Select the attribute to update
-1. Title
-2. Description
-
+1.Update Title
+2.Update Description
+3.Update Title and Description both
 Enter your Choice 1
-Enter a new value to be updated
-write the html
-Task Updated successfully!
-List of the task, Enter your  choice
+Enter a new value of the Title
+write testcase
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
@@ -196,33 +215,65 @@ List of the task, Enter your  choice
 Enter a choice 2
 Task List
 
-Task: write the html - Write a code using C#
-List of the task, Enter your  choice
+Task: write testcase - do code in cpp
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
 4.Remove a Task
 5.Exit
-Enter a choice 4
-Enter a Task index you want to delete
+Enter a choice 3
+Enter the task number you want to Update
 1
-Task deleted successfully
-List of the task, Enter your  choice
+Select the attribute to update
+1.Update Title
+2.Update Description
+3.Update Title and Description both
+Enter your Choice 2
+Enter a new value of the Description
+make the testcase
+List of the task,Enter your  choice
+1.Create a Task
+2.Read a Task
+3.Update a Task
+4.Remove a Task
+5.Exit
+Enter a choice  2
+Task List
+
+Task: write testcase - make the testcase
+List of the task,Enter your  choice
+1.Create a Task
+2.Read a Task
+3.Update a Task
+4.Remove a Task
+5.Exit
+Enter a choice 3
+Enter the task number you want to Update
+1
+Select the attribute to update
+1.Update Title
+2.Update Description
+3.Update Title and Description both
+Enter your Choice 3
+Enter a new value of the Title
+coding
+Enter a new value of the Description
+code should be in java
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
 4.Remove a Task
 5.Exit
 Enter a choice 2
-No Available task
-List of the task, Enter your  choice
+Task List
+
+Task: coding  - code should be in java
+List of the task,Enter your  choice
 1.Create a Task
 2.Read a Task
 3.Update a Task
 4.Remove a Task
 5.Exit
-Enter a choice 5
-
-C:\Users\Admin\source\repos\ConsoleAppCURD\bin\Debug\net8.0\ConsoleAppCURD.exe (process 1068) exited with code 0.
-Press any key to close this window . . .
 */
