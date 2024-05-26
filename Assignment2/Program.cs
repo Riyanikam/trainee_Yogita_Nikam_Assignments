@@ -87,18 +87,18 @@ namespace ConsoleAppTask2
             }
             public void UpdateItem(int id,string name,int price,int quality)//function for updating all the the items of the list
             {
-                if (id <= 0)
+                if (id<=0)
                 {
                     Console.WriteLine("You have entered an invalid id. Please enter a valid id");
                     return;
                 }
-                for (int i = 0; i < list.Count; i++)
+                for (int i=0;i<list.Count;i++)
                 {
-                    if (list[i].Id == id)
+                    if (list[i].Id==id)
                     {
-                        list[i].Name = name;
-                        list[i].Price = price;
-                        list[i].Quality = quality;
+                        list[i].Name=name;
+                        list[i].Price=price;
+                        list[i].Quality=quality;
                         Console.WriteLine("Item updated");
                         return;
                     }
