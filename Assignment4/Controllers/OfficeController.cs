@@ -37,7 +37,7 @@ namespace VisitorManagementSystem.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateOffice([FromBody] OfficeDTO officeDto)
+        public async Task<IActionResult> UpdateOffice( OfficeDTO officeDto)
         {
             var result = await _OfficeService.UpdateOffice(officeDto);
             return Ok(result);
