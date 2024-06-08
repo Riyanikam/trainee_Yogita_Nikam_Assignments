@@ -3,8 +3,8 @@ using VisitorSecuritySys.Interface;
 
 namespace VisitorSecuritySys.Controllers
 {
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    [Route("[controller]")]
     public class NotificationController : ControllerBase
     {
         private readonly IEmailService _emailService;
