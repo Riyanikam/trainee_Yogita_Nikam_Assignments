@@ -13,41 +13,41 @@ namespace VisitorSecuritySys.Controllers
 
             public VisitorController(IVisitorService VisitorService)
             {
-                _VisitorService = VisitorService;
+                VisitorService = VisitorService;
             }
 
             [HttpPost]
             public async Task<IActionResult> CreateVisitor(VisitorDTO VisitorDto)
             {
-                var result = await _VisitorService.AddVisitor(VisitorDto);
+                var result = await VisitorService.AddVisitor(VisitorDto);
                 return Ok(result);
             }
 
             [HttpGet("{id}")]
             public async Task<IActionResult> GetVisitor(string id)
             {
-                var result = await _VisitorService.GetVisitorById(id);
+                var result = await VisitorService.GetVisitorById(id);
                 return Ok(result);
             }
 
             [HttpGet]
             public async Task<IActionResult> GetAllVisitor()
             {
-                var result = await _VisitorService.GetAllVisitor();
+                var result = await VisitorService.GetAllVisitor();
                 return Ok(result);
             }
 
             [HttpPut]
             public async Task<IActionResult> UpdateVisitor(VisitorDTO VisitorDto)
             {
-                var result = await _VisitorService.UpdateVisitor(VisitorDto);
+                var result = await VisitorService.UpdateVisitor(VisitorDto);
                 return Ok(result);
             }
 
             [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteVisitor(string id)
             {
-                await _VisitorService.DeleteVisitor(id);
+                await VisitorService.DeleteVisitor(id);
                 return NoContent();
             }
         }
