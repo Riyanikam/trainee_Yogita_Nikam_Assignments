@@ -10,11 +10,11 @@ namespace VisitorSecuritySys.Service
 {
     public class VisitorService : IVisitorService
     {
-        private readonly ICosmosDBService _cosmosDBService;
+        private readonly ICosmosDBService cosmosDBService;
 
         public VisitorService(ICosmosDBService cosmosDBService)
         {
-            _cosmosDBService = cosmosDBService;
+            cosmosDBService = cosmosDBService;
         }
 
         public async Task<VisitorDTO> AddVisitor(VisitorDTO visitorDto)
@@ -30,11 +30,11 @@ namespace VisitorSecuritySys.Service
                 Name = visitorDto.Name,
                 Email = visitorDto.Email,
                 Phone = visitorDto.PhoneNumber,
-                Department = "Default Department", // Set default values for missing properties if needed
-                Location = "Default Location"
+                Department = "Department", 
+                Location = "Location"
             };
 
-            var response = await _cosmosDBService.AddVisitor(visitorEntity);
+            var response = await cosmosDBService.AddVisitor(visitorEntity);
 
             var responseModel = new VisitorDTO
             {
@@ -42,7 +42,6 @@ namespace VisitorSecuritySys.Service
                 Name = response.Name,
                 Email = response.Email,
                 PhoneNumber = response.Phone,
-                // Map other properties as needed
             };
 
             return responseModel;
@@ -50,7 +49,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task<VisitorDTO> GetVisitorById(string id)
         {
-            var visitor = await _cosmosDBService.GetVisitorById(id);
+            var visitor = await cosmosDBService.GetVisitorById(id);
 
             if (visitor == null)
             {
@@ -63,7 +62,6 @@ namespace VisitorSecuritySys.Service
                 Name = visitor.Name,
                 Email = visitor.Email,
                 PhoneNumber = visitor.Phone,
-                // Map other properties as needed
             };
 
             return visitorDto;
@@ -71,7 +69,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task<IEnumerable<VisitorDTO>> GetAllVisitor()
         {
-            var visitors = await _cosmosDBService.GetAllVisitors();
+            var visitors = await cosmosDBService.GetAllVisitors();
 
             var visitorDtos = new List<VisitorDTO>();
             foreach (var visitor in visitors)
@@ -82,7 +80,6 @@ namespace VisitorSecuritySys.Service
                     Name = visitor.Name,
                     Email = visitor.Email,
                     PhoneNumber = visitor.Phone,
-                    // Map other properties as needed
                 };
                 visitorDtos.Add(visitorDto);
             }
@@ -103,11 +100,11 @@ namespace VisitorSecuritySys.Service
                 Name = visitorDto.Name,
                 Email = visitorDto.Email,
                 Phone = visitorDto.PhoneNumber,
-                Department = "Updated Department", // Update properties as needed
-                Location = "Updated Location"
+                Department = "Department", 
+                Location = "Location"
             };
 
-            var response = await _cosmosDBService.UpdateVisitor(visitorEntity);
+            var response = await cosmosDBService.UpdateVisitor(visitorEntity);
 
             var responseModel = new VisitorDTO
             {
@@ -115,7 +112,6 @@ namespace VisitorSecuritySys.Service
                 Name = response.Name,
                 Email = response.Email,
                 PhoneNumber = response.Phone,
-                // Map other properties as needed
             };
 
             return responseModel;
@@ -123,7 +119,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task DeleteVisitor(string id)
         {
-            await _cosmosDBService.DeleteVisitor(id);
+            await cosmosDBService.DeleteVisitor(id);
         }
     }
 }
