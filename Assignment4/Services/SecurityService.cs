@@ -7,11 +7,11 @@ namespace VisitorSecuritySys.Service
 {
     public class SecurityService : ISecurityService
     {
-        private readonly ICosmosDBService _cosmosDBService;
+        private readonly ICosmosDBService cosmosDBService;
 
         public SecurityService(ICosmosDBService cosmosDBService)
         {
-            _cosmosDBService = cosmosDBService ?? throw new ArgumentNullException(nameof(cosmosDBService));
+            cosmosDBService = cosmosDBService ?? throw new ArgumentNullException(nameof(cosmosDBService));
         }
 
         public async Task<SecurityDTO> AddSecurity(SecurityDTO securityDto)
@@ -31,7 +31,7 @@ namespace VisitorSecuritySys.Service
                 AssignedLocation = "Default Location"
             };
 
-            var response = await _cosmosDBService.AddSecurity(securityEntity);
+            var response = await cosmosDBService.AddSecurity(securityEntity);
 
             var responseModel = new SecurityDTO
             {
@@ -46,7 +46,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task<SecurityDTO> GetSecurityById(string id)
         {
-            var security = await _cosmosDBService.GetSecurityById(id);
+            var security = await cosmosDBService.GetSecurityById(id);
 
             if (security == null)
             {
@@ -66,7 +66,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task<IEnumerable<SecurityDTO>> GetAllSecurity()
         {
-            var securities = await _cosmosDBService.GetAllSecurities();
+            var securities = await cosmosDBService.GetAllSecurities();
 
             var securityDtos = new List<SecurityDTO>();
             foreach (var security in securities)
@@ -97,11 +97,11 @@ namespace VisitorSecuritySys.Service
                 Name = securityDto.Name,
                 Email = securityDto.Email,
                 Phone = securityDto.PhoneNumber,
-                Shift = "Updated Shift", // Update properties as needed
+                Shift = "Updated Shift",
                 AssignedLocation = "Updated Location"
             };
 
-            var response = await _cosmosDBService.UpdateSecurity(securityEntity);
+            var response = await cosmosDBService.UpdateSecurity(securityEntity);
 
             var responseModel = new SecurityDTO
             {
@@ -116,7 +116,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task DeleteSecurity(string id)
         {
-            await _cosmosDBService.DeleteSecurity(id);
+            await cosmosDBService.DeleteSecurity(id);
         }
     }
 }
