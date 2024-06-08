@@ -7,11 +7,11 @@ namespace VisitorSecuritySys.Service
 {
     public class OfficeService : IOfficeService
     {
-        private readonly ICosmosDBService _cosmosDBService;
+        private readonly ICosmosDBService cosmosDBService;
 
         public OfficeService(ICosmosDBService cosmosDBService)
         {
-            _cosmosDBService = cosmosDBService;
+            cosmosDBService = cosmosDBService;
         }
 
         public async Task<OfficeDTO> AddOffice(OfficeDTO officeDto)
@@ -28,7 +28,7 @@ namespace VisitorSecuritySys.Service
                 Location = officeDto.Location
             };
 
-            var response = await _cosmosDBService.AddOffice(officeEntity);
+            var response = await cosmosDBService.AddOffice(officeEntity);
 
             var responseModel = new OfficeDTO
             {
@@ -42,7 +42,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task<OfficeDTO> GetOfficeById(string id)
         {
-            var office = await _cosmosDBService.GetOfficeById(id);
+            var office = await cosmosDBService.GetOfficeById(id);
 
             if (office == null)
             {
@@ -61,7 +61,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task<IEnumerable<OfficeDTO>> GetAllOffices()
         {
-            var offices = await _cosmosDBService.GetAllOffices();
+            var offices = await cosmosDBService.GetAllOffices();
 
             var officeDtos = new List<OfficeDTO>();
             foreach (var office in offices)
@@ -92,7 +92,7 @@ namespace VisitorSecuritySys.Service
                 Location = officeDto.Location
             };
 
-            var response = await _cosmosDBService.UpdateOffice(officeEntity);
+            var response = await cosmosDBService.UpdateOffice(officeEntity);
 
             var responseModel = new OfficeDTO
             {
@@ -106,7 +106,7 @@ namespace VisitorSecuritySys.Service
 
         public async Task DeleteOffice(string id)
         {
-            await _cosmosDBService.DeleteOffice(id);
+            await cosmosDBService.DeleteOffice(id);
         }
     }
 }
