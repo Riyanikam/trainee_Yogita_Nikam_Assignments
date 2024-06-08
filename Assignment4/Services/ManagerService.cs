@@ -8,36 +8,36 @@ namespace VisitorSecuritySys.Service
 {
     public class ManagerService : IManagerService
     {
-        private readonly ICosmosDBService _cosmosDBService;
+        private readonly ICosmosDBService cosmosDBService;
 
         public ManagerService(ICosmosDBService cosmosDBService)
         {
-            _cosmosDBService = cosmosDBService;
+            cosmosDBService = cosmosDBService;
         }
 
         public async Task<ManagerEntity> AddManager(ManagerEntity manager)
         {
-            return await _cosmosDBService.AddManager(manager);
+            return await cosmosDBService.AddManager(manager);
         }
 
         public async Task<ManagerEntity> GetManagerById(string id)
         {
-            return await _cosmosDBService.GetManagerById(id);
+            return await cosmosDBService.GetManagerById(id);
         }
 
         public async Task<IEnumerable<ManagerEntity>> GetAllManagers()
         {
-            return await _cosmosDBService.GetAllManagers();
+            return await cosmosDBService.GetAllManagers();
         }
 
         public async Task<ManagerEntity> UpdateManager(ManagerEntity manager)
         {
-            return await _cosmosDBService.UpdateManager(manager);
+            return await cosmosDBService.UpdateManager(manager);
         }
 
         public async Task DeleteManager(string id)
         {
-            await _cosmosDBService.DeleteManager(id);
+            await cosmosDBService.DeleteManager(id);
         }
     }
 }
