@@ -9,13 +9,13 @@ namespace VisitorSecuritySys.Services
     public class SmtpEmailService : IEmailService
     {
         private readonly SmtpClient _smtpClient;
-        private readonly string _fromEmail;
+        private readonly string fromEmail;
 
         public SmtpEmailService(IOptions<SmtpSettings> smtpSettings)
         {
             var settings = smtpSettings.Value;
-            _fromEmail = settings.FromEmail;
-            _smtpClient = new SmtpClient(settings.Host, settings.Port)
+            fromEmail = settings.FromEmail;
+            smtpClient = new SmtpClient(settings.Host, settings.Port)
             {
                 Credentials = new NetworkCredential(settings.Username, settings.Password),
                 EnableSsl = settings.EnableSsl
